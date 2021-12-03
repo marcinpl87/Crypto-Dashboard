@@ -1,0 +1,6 @@
+wp
+dist
+node_modules
+package-lock.json
+app/bundle.css
+app/bundle.js
