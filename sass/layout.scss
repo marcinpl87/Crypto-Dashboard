@@ -9,7 +9,10 @@ body {
 .app-header {
     height: 93px;
     background-color: $backgroundHeaderDark;
-    h1 {
+    .form-switch {
+        font-weight: bold;
+    }
+    h1, .form-switch {
         margin: 0 50px;
     }
 }

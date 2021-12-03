@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ThemeSwitch from './ThemeSwitch';
 
-const Header = () => {
+const Header = (props) => {
     return (
-        <div className="
+        <div className={`
             app-header
             d-flex
             align-items-center
             justify-content-between
-        ">
+            ${
+                props.isDarkMode
+                    ? 'dark-mode'
+                    : ''
+            }
+        `}>
             <h1>
                 <span className="
                     badge
@@ -25,6 +31,14 @@ const Header = () => {
                 </span>
                 &nbsp;Market Dashboard
             </h1>
+            <ThemeSwitch
+                isDarkMode={
+                    props.isDarkMode
+                }
+                setDarkMode={
+                    props.setDarkMode
+                }
+            />
         </div>
     );
 }
