@@ -1,18 +1,47 @@
+$textLight: #000;
+$backgroundLight: #f5f8fa;
+$backgroundHeaderLight: #fff;
+$textDark: #fff;
 $backgroundDark: #151521;
 $backgroundHeaderDark: #1e1e2d;
 
-body {
-    background-color: $backgroundDark;
-    color: #fff;
+:root {
+    --color-text: #{$textLight};
+    --color-background: #{$backgroundLight};
+    --color-header-background: #{$backgroundHeaderLight};
+}
+.dark-mode {
+    --color-text: #{$textDark};
+    --color-background: #{$backgroundDark};
+    --color-header-background: #{$backgroundHeaderDark};
 }
 
+html, body {
+    margin: 0;
+    height: 100%;
+
+font-family: 'Poppins', sans-serif;
+
+}
+.app-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
 .app-header {
+    flex: 0 1 auto;
+    color: var(--color-text);
     height: 93px;
-    background-color: $backgroundHeaderDark;
+    background-color: var(--color-header-background);
     .form-switch {
         font-weight: bold;
     }
     h1, .form-switch {
         margin: 0 50px;
     }
+}
+.app-main {
+    flex: 1 1 auto;
+    color: var(--color-text);
+    background-color: var(--color-background);
 }
