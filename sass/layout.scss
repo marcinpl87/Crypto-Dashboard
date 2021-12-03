@@ -1,0 +1,15 @@
+$backgroundDark: #151521;
+$backgroundHeaderDark: #1e1e2d;
+
+body {
+    background-color: $backgroundDark;
+    color: #fff;
+}
+
+.app-header {
+    height: 93px;
+    background-color: $backgroundHeaderDark;
+    h1 {
+        margin: 0 50px;
+    }
+}
