@@ -14,9 +14,6 @@ const ThemeSwitch = (props) => {
                         props.setDarkMode(
                             e.currentTarget.checked
                         );
-                        setIsChecked(
-                            e.currentTarget.checked
-                        );
                     }
                 }
                 checked={props.isDarkMode}

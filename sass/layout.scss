@@ -1,17 +1,21 @@
 $textLight: #000;
+$borderLight: #fff;
 $backgroundLight: #f5f8fa;
 $backgroundHeaderLight: #fff;
 $textDark: #fff;
+$borderDark: #2b2b40;
 $backgroundDark: #151521;
 $backgroundHeaderDark: #1e1e2d;
 
 :root {
     --color-text: #{$textLight};
+    --color-border: #{$borderLight};
     --color-background: #{$backgroundLight};
     --color-header-background: #{$backgroundHeaderLight};
 }
 .dark-mode {
     --color-text: #{$textDark};
+    --color-border: #{$borderDark};
     --color-background: #{$backgroundDark};
     --color-header-background: #{$backgroundHeaderDark};
 }
@@ -19,9 +23,7 @@ $backgroundHeaderDark: #1e1e2d;
 html, body {
     margin: 0;
     height: 100%;
-
-font-family: 'Poppins', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
 }
 .app-container {
     display: flex;
@@ -32,6 +34,8 @@ font-family: 'Poppins', sans-serif;
     flex: 0 1 auto;
     color: var(--color-text);
     height: 93px;
+    min-height: 93px;
+    max-height: 93px;
     background-color: var(--color-header-background);
     .form-switch {
         font-weight: bold;
@@ -42,6 +46,20 @@ font-family: 'Poppins', sans-serif;
 }
 .app-main {
     flex: 1 1 auto;
+    padding-top: 12px;
     color: var(--color-text);
     background-color: var(--color-background);
+    .card {
+        border: 1px solid var(--color-border);
+        background-color: var(--color-header-background);
+        .card-body {
+            padding: 0;
+        }
+        .card-title {
+            padding: 16px 16px 0;
+        }
+    }
+    [class^='col-md'] {
+        padding: 12px;
+    }
 }

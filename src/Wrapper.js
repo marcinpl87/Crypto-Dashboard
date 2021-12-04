@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/header/Header';
+import Main from './components/main/Main';
 
 const Wrapper = () => {
     const [
@@ -19,17 +20,11 @@ const Wrapper = () => {
                     setDarkMode
                 }
             />
-            <div
-                className={`
-                    app-main
-                    ${
-                        isDarkMode
-                            ? 'dark-mode'
-                            : ''
-                    }
-                `}
-            >
-            </div>
+            <Main
+                isDarkMode={
+                    isDarkMode
+                }
+            />
         </React.Fragment>
     );
 }
