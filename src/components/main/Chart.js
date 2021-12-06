@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApexChart from "react-apexcharts";
+import Modal from './Modal';
+import 'bootstrap';
 
 const Chart = (props) => {
+    const randId = Math
+        .random()
+        .toString(10)
+        .replace(
+            '.',
+            ''
+        );
     const data = {
         options: {
             theme: {
@@ -77,11 +86,15 @@ const Chart = (props) => {
                     <h5>Card</h5>
                     <button
                         type="button"
-                        class="
+                        className="
                             btn
                             btn-sm
                             btn-outline-primary
                         "
+                        data-bs-toggle="modal"
+                        data-bs-target={
+                            `#modal-${randId}`
+                        }
                     >
                         ⚙️
                     </button>
@@ -92,6 +105,9 @@ const Chart = (props) => {
                     type="area"
                 />
             </div>
+            <Modal
+                modalId={`modal-${randId}`}
+            />
         </div>
     );
 }
