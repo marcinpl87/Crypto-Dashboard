@@ -8,6 +8,7 @@ $backgroundDark: #151521;
 $backgroundHeaderDark: #1e1e2d;
 
 :root {
+    --bs-body-font-family: 'Poppins', sans-serif;
     --color-text: #{$textLight};
     --color-border: #{$borderLight};
     --color-background: #{$backgroundLight};
@@ -23,7 +24,6 @@ $backgroundHeaderDark: #1e1e2d;
 html, body {
     margin: 0;
     height: 100%;
-    font-family: 'Poppins', sans-serif;
 }
 .app-container {
     display: flex;

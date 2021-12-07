@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync');
 
 var sassCompile = (callback) => {
-    return gulp.src('./sass/**/*.scss')
+    return gulp.src('./sass/style.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('bundle.css'))
         .pipe(gulp.dest('./app'))
