@@ -13,12 +13,16 @@ $backgroundHeaderDark: #1e1e2d;
     --color-border: #{$borderLight};
     --color-background: #{$backgroundLight};
     --color-header-background: #{$backgroundHeaderLight};
+    --btn-close-filter: initial;
+    --modal-border: #dee2e6;
 }
 .dark-mode {
     --color-text: #{$textDark};
     --color-border: #{$borderDark};
     --color-background: #{$backgroundDark};
     --color-header-background: #{$backgroundHeaderDark};
+    --btn-close-filter: invert(1) grayscale(100%) brightness(200%);
+    --modal-border: #{$borderDark};
 }
 
 html, body {
@@ -57,6 +61,16 @@ html, body {
         }
         .card-title {
             padding: 16px 16px 0;
+        }
+    }
+    .modal-content {
+        background-color: var(--color-header-background);
+        .btn-close {
+            filter: var(--btn-close-filter);
+        }
+        .modal-header,
+        .modal-footer {
+            border-color: var(--modal-border);
         }
     }
     [class^='col-md'] {

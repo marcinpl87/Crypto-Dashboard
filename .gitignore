@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 app/bundle.css
 app/bundle.js
+app/token.php
