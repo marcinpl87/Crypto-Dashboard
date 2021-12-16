@@ -80,7 +80,21 @@ function getSymbol($symbol) {
     ] as $date => $price) {
         $return[] = [$date, $price['4. close']];
     }
-    return json_encode($return);
+    return prepareData(
+        $return
+    );
+}
+
+function prepareData($data) {
+    return json_encode(
+        array_reverse(
+            array_slice(
+                $data,
+                0,
+                500 //return only last 500 elements
+            )
+        )
+    );
 }
 
 add_action('rest_api_init', function() use(&$wpdb) {
@@ -120,9 +134,7 @@ add_action('rest_api_init', function() use(&$wpdb) {
                 ] == date(
                     'Y-m-d'
                 ).' 00:00:00') { //cache is up to date
-                    echo json_encode(
-                        $checkSymbol[0]['data']
-                    );
+                    echo $checkSymbol[0]['data'];
                 }
                 else { //cache is old
                     $apiData = getSymbol($symbol);
