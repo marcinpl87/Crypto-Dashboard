@@ -85,6 +85,20 @@ function getSymbol($symbol) {
     );
 }
 
+function searchSymbol($query) {
+    global $token;
+    return mCurl(
+        'get',
+        $token,
+        'https://alpha-vantage.p.rapidapi.com/query',
+        [
+            'function' => 'SYMBOL_SEARCH',
+            'keywords' => $query,
+            'datatype' => 'json',
+        ]
+    )->bestMatches;
+}
+
 function prepareData($data) {
     return json_encode(
         array_reverse(
@@ -151,6 +165,18 @@ add_action('rest_api_init', function() use(&$wpdb) {
                     echo $apiData;
                 }
             }
+        },
+    ]);
+    register_rest_route('mapi', '/search/(?P<query>\w+)', [
+        'methods' => 'get',
+        'permission_callback' => '__return_true',
+        'callback' => function(WP_REST_Request $params) use(&$wpdb) {
+            header('Content-type:application/json;charset=utf-8');
+            echo json_encode(
+                searchSymbol(
+                    $params->get_params()['query']
+                )
+            );
         },
     ]);
 });
