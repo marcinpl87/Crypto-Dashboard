@@ -1,7 +1,14 @@
-import React from 'react';
+import React, {
+    useState,
+} from 'react';
 import ReactDOM from 'react-dom';
+import Suggest from './Suggest';
 
 const Modal = (props) => {
+    const [
+        isFetch,
+        setIsFetch,
+    ] = useState(false);
     return (
         <div className="modal fade" id={props.modalId} tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -17,7 +24,35 @@ const Modal = (props) => {
                         ></button>
                     </div>
                     <div className="modal-body">
-                        Test Modal
+                        <label htmlFor="symbol" className="form-label">
+                            Stock ticker or company name
+                        </label>
+                        <Suggest
+                            id="symbol"
+                            className="form-control"
+                            data={[
+                                {
+                                    name: 'C',
+                                    year: 1972
+                                }, {
+                                    name: 'C#',
+                                    year: 2000
+                                },
+                            ]}
+                            placeholder="e.g. GME"
+                            onFetchStart={() => {
+                                setIsFetch(true);
+                            }}
+                            onFetchStop={() => {
+                                setIsFetch(false);
+                            }}
+                        />
+                        <div className="form-text">
+                            {isFetch
+                                ? <span>Loading tickers...</span>
+                                : <span>&nbsp;</span>
+                            }
+                        </div>
                     </div>
                     <div className="modal-footer">
                         <button
