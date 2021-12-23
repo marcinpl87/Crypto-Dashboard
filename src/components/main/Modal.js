@@ -2,7 +2,7 @@ import React, {
     useState,
 } from 'react';
 import ReactDOM from 'react-dom';
-import Suggest from './Suggest';
+import Suggest from './SuggestApi';
 
 const Modal = (props) => {
     const [
@@ -30,16 +30,22 @@ const Modal = (props) => {
                         <Suggest
                             id="symbol"
                             className="form-control"
-                            data={[
-                                {
-                                    name: 'C',
-                                    year: 1972
-                                }, {
-                                    name: 'C#',
-                                    year: 2000
-                                },
-                            ]}
-                            placeholder="e.g. GME"
+                            placeholder="e.g. gme or gamestop"
+                            endpoint="search"
+                            getSuggestionValue={(suggestion) => (
+                                suggestion['1. symbol']
+                            )}
+                            renderSuggestion={(suggestion) => (
+                                <div>
+                                    {
+                                        suggestion['1. symbol']
+                                    } - {
+                                        suggestion['2. name']
+                                    } ({
+                                        suggestion['4. region']
+                                    })
+                                </div>
+                            )}
                             onFetchStart={() => {
                                 setIsFetch(true);
                             }}
