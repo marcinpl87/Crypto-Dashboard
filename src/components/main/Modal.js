@@ -9,6 +9,7 @@ const Modal = (props) => {
         isFetch,
         setIsFetch,
     ] = useState(false);
+    let selectedSymbol = '';
     return (
         <div className="modal fade" id={props.modalId} tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -32,9 +33,10 @@ const Modal = (props) => {
                             className="form-control"
                             placeholder="e.g. gme or gamestop"
                             endpoint="search"
-                            getSuggestionValue={(suggestion) => (
-                                suggestion['1. symbol']
-                            )}
+                            getSuggestionValue={(suggestion) => {
+                                selectedSymbol = suggestion['1. symbol'];
+                                return suggestion['1. symbol'];
+                            }}
                             renderSuggestion={(suggestion) => (
                                 <div>
                                     {
@@ -64,6 +66,9 @@ const Modal = (props) => {
                         <button
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
+                            onClick={() => {
+                                props.callback(selectedSymbol);
+                            }}
                         >
                             Save
                         </button>

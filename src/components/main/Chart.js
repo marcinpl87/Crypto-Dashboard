@@ -4,26 +4,17 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import ApexChart from 'react-apexcharts';
-import Modal from './Modal';
 import Utils from '../../Utils';
-import 'bootstrap';
 
 const Chart = (props) => {
     const [
         data,
         setData,
     ] = useState(false);
-    const randId = Math
-        .random()
-        .toString(10)
-        .replace(
-            '.',
-            ''
-        );
     useEffect(() => {
         Utils.ajax(
             'get',
-            'quotes/gme'
+            'quotes/' + props.symbol
         ).done((apiData) => {
             let dates = [];
             let quotes = [];
@@ -80,40 +71,13 @@ const Chart = (props) => {
         });
     }, []); //run only once after first render
     return (
-        <div className="card">
-            <div className="card-body">
-                <div className="
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                    card-title
-                ">
-                    <h5>Card</h5>
-                    <button
-                        type="button"
-                        className="
-                            btn
-                            btn-sm
-                            btn-outline-primary
-                        "
-                        data-bs-toggle="modal"
-                        data-bs-target={
-                            `#modal-${randId}`
-                        }
-                    >
-                        ⚙️
-                    </button>
-                </div>
+        <React.Fragment>
                 {data && <ApexChart
                     options={data.options}
                     series={data.series}
                     type="area"
                 />}
-            </div>
-            <Modal
-                modalId={`modal-${randId}`}
-            />
-        </div>
+        </React.Fragment>
     );
 }
 

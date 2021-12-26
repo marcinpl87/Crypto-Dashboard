@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chart from './Chart';
+import Card from './Card';
 
 const Main = (props) => {
     return (
@@ -17,14 +17,14 @@ const Main = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <Chart
+                        <Card
                             isDarkMode={
                                 props.isDarkMode
                             }
                         />
                     </div>
                     <div className="col-md-6">
-                        <Chart
+                        <Card
                             isDarkMode={
                                 props.isDarkMode
                             }
@@ -33,7 +33,7 @@ const Main = (props) => {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <Chart
+                        <Card
                             isDarkMode={
                                 props.isDarkMode
                             }
@@ -42,14 +42,14 @@ const Main = (props) => {
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <Chart
+                        <Card
                             isDarkMode={
                                 props.isDarkMode
                             }
                         />
                     </div>
                     <div className="col-md-6">
-                        <Chart
+                        <Card
                             isDarkMode={
                                 props.isDarkMode
                             }
