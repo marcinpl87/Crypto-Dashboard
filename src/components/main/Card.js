@@ -10,7 +10,7 @@ export default (props) => {
     const [
         symbol,
         setSymbol,
-    ] = useState("gme");
+    ] = useState(props.symbol);
     const randId = Math
         .random()
         .toString(10)
@@ -54,7 +54,6 @@ export default (props) => {
             <Modal
                 modalId={`modal-${randId}`}
                 callback={(newSymbol) => {
-                    console.log('modal save', newSymbol);
                     setSymbol(newSymbol);
                 }}
             />
