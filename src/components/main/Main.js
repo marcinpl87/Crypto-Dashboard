@@ -18,11 +18,16 @@ const Row = (props) => {
         <div className="row">
             {props.symbol.map((sym, k) => (
                 <Col
-                    key={k}
+                    key={Math.random()}
+                    setSymbol={
+                        props.setSymbol
+                    }
                     isDarkMode={
                         props.isDarkMode
                     }
-                    symbol={sym}
+                    symbol={
+                        sym
+                    }
                 />
             ))}
         </div>
@@ -33,6 +38,7 @@ const Col = (props) => {
     return (
         <div className="col-md-6">
             <Card
+                key={Math.random()}
                 isDarkMode={
                     props.isDarkMode
                 }
@@ -41,6 +47,9 @@ const Col = (props) => {
                 }
                 symbol={
                     props.symbol.name
+                }
+                setSymbol={
+                    props.setSymbol
                 }
             />
         </div>
@@ -51,7 +60,42 @@ export default (props) => {
     const [
         symbols,
         setSymbols,
-    ] = useState([]);
+    ] = useState([
+        {'id': 1, 'name': ''},
+    ]);
+    const symbolEdit = (id, symbol) => {
+        const objIndex = symbols.findIndex(
+            obj => obj.id == id
+        );
+        symbols[objIndex] = {
+            'id': id,
+            'name': symbol,
+        };
+        symbolCheckAndAdd(symbols);
+        setSymbols(
+            JSON.parse(
+                JSON.stringify(
+                    symbols
+                )
+            )
+        ); //clone object to force render
+    };
+    const symbolCheckAndAdd = (data) => {
+        const maxId = (parseInt(Math.max(
+            ...data.map(
+                obj => obj.id
+            )
+        )) || 0);
+        const objIndex = symbols.findIndex(
+            obj => obj.id == maxId
+        );
+        if (!!symbols[objIndex].name) { //no empty chart
+            data.push({
+                'id': maxId + 1,
+                'name': '',
+            });
+        }
+    };
     return (
         <div
             className={`
@@ -63,22 +107,18 @@ export default (props) => {
                 }
             `}
         >
-            <div className="container">
-                {chunks([
-                    {'id': 1, 'name': 'bby'},
-                    {'id': 2, 'name': 'chwy'},
-                    {'id': 3, 'name': 'amzn'},
-                    {'id': 4, 'name': 'gme'},
-                ]).map((sym, k) => (
+            {symbols && <div className="container">
+                {chunks(symbols).map((sym, k) => (
                     <Row
                         key={k}
                         isDarkMode={
                             props.isDarkMode
                         }
                         symbol={sym}
+                        setSymbol={symbolEdit}
                     />
                 ))}
-            </div>
+            </div>}
         </div>
     );
 };

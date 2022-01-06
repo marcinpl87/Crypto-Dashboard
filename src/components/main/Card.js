@@ -11,13 +11,6 @@ export default (props) => {
         symbol,
         setSymbol,
     ] = useState(props.symbol);
-    const randId = Math
-        .random()
-        .toString(10)
-        .replace(
-            '.',
-            ''
-        );
     return (
         <div className="card">
             <div className="card-body">
@@ -27,7 +20,10 @@ export default (props) => {
                     align-items-center
                     card-title
                 ">
-                    <h5>{symbol.toUpperCase()}</h5>
+                    {symbol
+                        ? <h5>{symbol.toUpperCase()}</h5>
+                        : <h5>Click on ⚙️ icon to add new chart ➜</h5>
+                    }
                     <button
                         type="button"
                         className="
@@ -37,24 +33,27 @@ export default (props) => {
                         "
                         data-bs-toggle="modal"
                         data-bs-target={
-                            `#modal-${randId}`
+                            `#modal-${props.sid}`
                         }
                     >
                         ⚙️
                     </button>
                 </div>
-                <Chart
-                    key={symbol}
+                {symbol
+                    && <Chart
+                        key={Math.random()}
                     isDarkMode={
                         props.isDarkMode
                     }
-                    symbol={symbol}
+                        symbol={symbol}
                 />
+                }
             </div>
             <Modal
-                modalId={`modal-${randId}`}
+                title={symbol ? symbol.toUpperCase() : 'New chart'}
+                modalId={`modal-${props.sid}`}
                 callback={(newSymbol) => {
-                    setSymbol(newSymbol);
+                    props.setSymbol(props.sid, newSymbol);
                 }}
             />
         </div>

@@ -16,7 +16,7 @@ const Modal = (props) => {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">
-                            {props.modalId}
+                            {props.title}
                         </h5>
                         <button
                             type="button"
