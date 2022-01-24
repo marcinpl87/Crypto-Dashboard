@@ -19,14 +19,17 @@ const Row = (props) => {
             {props.symbol.map((sym, k) => (
                 <Col
                     key={Math.random()}
-                    setSymbol={
-                        props.setSymbol
-                    }
                     isDarkMode={
                         props.isDarkMode
                     }
                     symbol={
                         sym
+                    }
+                    setSymbol={
+                        props.setSymbol
+                    }
+                    delSymbol={
+                        props.delSymbol
                     }
                 />
             ))}
@@ -50,6 +53,9 @@ const Col = (props) => {
                 }
                 setSymbol={
                     props.setSymbol
+                }
+                delSymbol={
+                    props.delSymbol
                 }
             />
         </div>
@@ -96,6 +102,23 @@ export default (props) => {
             });
         }
     };
+    const symbolDel = (id) => {
+        if (symbols.length > 1) {
+            symbols.splice(
+                symbols.map(
+                    obj => obj.id
+                ).indexOf(id),
+                1
+            );
+            setSymbols(
+                JSON.parse(
+                    JSON.stringify(
+                        symbols
+                    )
+                )
+            ); //clone object to force render
+        }
+    }
     return (
         <div
             className={`
@@ -116,6 +139,7 @@ export default (props) => {
                         }
                         symbol={sym}
                         setSymbol={symbolEdit}
+                        delSymbol={symbolDel}
                     />
                 ))}
             </div>}

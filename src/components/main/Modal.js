@@ -62,12 +62,21 @@ const Modal = (props) => {
                             }
                         </div>
                     </div>
-                    <div className="modal-footer">
+                    <div className="modal-footer justify-content-between">
+                        <button
+                            className="btn btn-danger"
+                            data-bs-dismiss="modal"
+                            onClick={() => {
+                                props.del(selectedSymbol);
+                            }}
+                        >
+                            Delete
+                        </button>
                         <button
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                props.callback(selectedSymbol);
+                                props.save(selectedSymbol);
                             }}
                         >
                             Save

@@ -42,18 +42,21 @@ export default (props) => {
                 {symbol
                     && <Chart
                         key={Math.random()}
-                    isDarkMode={
-                        props.isDarkMode
-                    }
+                        isDarkMode={
+                            props.isDarkMode
+                        }
                         symbol={symbol}
-                />
+                    />
                 }
             </div>
             <Modal
                 title={symbol ? symbol.toUpperCase() : 'New chart'}
                 modalId={`modal-${props.sid}`}
-                callback={(newSymbol) => {
+                save={(newSymbol) => {
                     props.setSymbol(props.sid, newSymbol);
+                }}
+                del={() => {
+                    props.delSymbol(props.sid)
                 }}
             />
         </div>
