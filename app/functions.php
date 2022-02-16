@@ -32,6 +32,7 @@ function mCurl($action, $token, $url, $params = false) {
         CURLOPT_URL,
         $url
     );
+    if ($token) {
     curl_setopt(
         $ch,
         CURLOPT_HTTPHEADER,
@@ -40,6 +41,7 @@ function mCurl($action, $token, $url, $params = false) {
             'x-rapidapi-key: '.$token,
         ]
     );
+    }
     $res = curl_exec($ch);
     $rescode = curl_getinfo(
         $ch,
@@ -97,6 +99,17 @@ function searchSymbol($query) {
             'datatype' => 'json',
         ]
     )->bestMatches;
+}
+
+function searchCryptoSymbol($query) {
+    return mCurl(
+        'get',
+        false,
+        'https://api.coingecko.com/api/v3/coins/list',
+        [
+            'include_platform' => 'false'
+        ]
+    );
 }
 
 function prepareData($data) {
@@ -174,6 +187,18 @@ add_action('rest_api_init', function() use(&$wpdb) {
             header('Content-type:application/json;charset=utf-8');
             echo json_encode(
                 searchSymbol(
+                    $params->get_params()['query']
+                )
+            );
+        },
+    ]);
+    register_rest_route('mapi', '/search-crypto/(?P<query>\w+)', [
+        'methods' => 'get',
+        'permission_callback' => '__return_true',
+        'callback' => function(WP_REST_Request $params) use(&$wpdb) {
+            header('Content-type:application/json;charset=utf-8');
+            echo json_encode(
+                searchCryptoSymbol(
                     $params->get_params()['query']
                 )
             );
