@@ -72,11 +72,11 @@ const Chart = (props) => {
     }, []); //run only once after first render
     return (
         <React.Fragment>
-                {data && <ApexChart
-                    options={data.options}
-                    series={data.series}
-                    type="area"
-                />}
+            {data && <ApexChart
+                options={data.options}
+                series={data.series}
+                type="area"
+            />}
         </React.Fragment>
     );
 }
