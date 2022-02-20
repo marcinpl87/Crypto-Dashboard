@@ -14,7 +14,10 @@ const Chart = (props) => {
     useEffect(() => {
         Utils.ajax(
             'get',
-            'quotes/' + props.symbol
+            'quotes-'
+                + props.symbol.type
+                + '/'
+                + props.symbol.name
         ).done((apiData) => {
             let dates = [];
             let quotes = [];

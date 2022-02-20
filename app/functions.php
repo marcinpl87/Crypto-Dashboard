@@ -175,7 +175,7 @@ function prepareData($data) {
 }
 
 add_action('rest_api_init', function() use(&$wpdb) {
-    register_rest_route('mapi', '/quotes/(?P<symbol>\w+)', [
+    register_rest_route('mapi', '/quotes-stock/(?P<symbol>\w+)', [
         'methods' => 'get',
         'permission_callback' => '__return_true',
         'callback' => function(WP_REST_Request $params) use(&$wpdb) {
@@ -228,6 +228,48 @@ add_action('rest_api_init', function() use(&$wpdb) {
                     echo $apiData;
                 }
             }
+        },
+    ]);
+    register_rest_route('mapi', '/quotes-crypto/(?P<symbol>\w+)', [
+        'methods' => 'get',
+        'permission_callback' => '__return_true',
+        'callback' => function(WP_REST_Request $params) use(&$wpdb) {
+            header('Content-type:application/json;charset=utf-8');
+            $dataWithTimestamps = mCurl(
+                'get',
+                false,
+                'https://api.coingecko.com/api/v3/coins/'
+                    .$params->get_params()['symbol']
+                    .'/market_chart/range',
+                [
+                    'vs_currency' => 'usd',
+                    'from' => strtotime(
+                        'today -2 years'
+                    ),
+                    'to' => time(),
+                ]
+            )->prices;
+            echo json_encode(
+                array_map(
+                    function ($a) {
+                        return [
+                            date(
+                                'Y-m-d',
+                                $a[0] / 1000
+                            ),
+                            round(
+                                $a[1],
+                                ceil(
+                                    0 - log10(
+                                        $a[1]
+                                    )
+                                ) + 3
+                            ),
+                        ];
+                    },
+                    $dataWithTimestamps
+                )
+            );
         },
     ]);
     register_rest_route('mapi', '/search/(?P<query>\w+)', [

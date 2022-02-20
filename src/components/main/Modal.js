@@ -62,8 +62,8 @@ const Modal = (props) => {
                                         : "search"}
                                     getSuggestionValue={(suggestion) => {
                                         if (fetchAndType.type == "crypto") {
-                                            selectedSymbol = suggestion['symbol'];
-                                            return suggestion['symbol'];
+                                            selectedSymbol = suggestion['id'];
+                                            return suggestion['id'];
                                         }
                                         else {
                                             selectedSymbol = suggestion['1. symbol'];
