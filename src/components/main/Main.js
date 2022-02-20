@@ -49,7 +49,7 @@ const Col = (props) => {
                     props.symbol.id
                 }
                 symbol={
-                    props.symbol.name
+                    props.symbol
                 }
                 setSymbol={
                     props.setSymbol
@@ -67,14 +67,19 @@ export default (props) => {
         symbols,
         setSymbols,
     ] = useState([
-        {'id': 1, 'name': ''},
+        {
+            'id': 1,
+            'type': '',
+            'name': '',
+        },
     ]);
-    const symbolEdit = (id, symbol) => {
+    const symbolEdit = (id, type, symbol) => {
         const objIndex = symbols.findIndex(
             obj => obj.id == id
         );
         symbols[objIndex] = {
             'id': id,
+            'type': type,
             'name': symbol,
         };
         symbolCheckAndAdd(symbols);
@@ -98,6 +103,7 @@ export default (props) => {
         if (!!symbols[objIndex].name) { //no empty chart
             data.push({
                 'id': maxId + 1,
+                'type': '',
                 'name': '',
             });
         }

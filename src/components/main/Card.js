@@ -20,8 +20,8 @@ export default (props) => {
                     align-items-center
                     card-title
                 ">
-                    {symbol
-                        ? <h5>{symbol.toUpperCase()}</h5>
+                    {symbol.name
+                        ? <h5>{symbol.name.toUpperCase()}</h5>
                         : <h5>Click on ⚙️ icon to add new chart ➜</h5>
                     }
                     <button
@@ -39,7 +39,7 @@ export default (props) => {
                         ⚙️
                     </button>
                 </div>
-                {symbol
+                {symbol.name
                     && <Chart
                         key={Math.random()}
                         isDarkMode={
@@ -50,10 +50,10 @@ export default (props) => {
                 }
             </div>
             <Modal
-                title={symbol ? symbol.toUpperCase() : 'New chart'}
+                title={symbol.name ? symbol.name.toUpperCase() : 'New chart'}
                 modalId={`modal-${props.sid}`}
-                save={(newSymbol) => {
-                    props.setSymbol(props.sid, newSymbol);
+                save={(type, newSymbol) => {
+                    props.setSymbol(props.sid, type, newSymbol);
                 }}
                 del={() => {
                     props.delSymbol(props.sid)

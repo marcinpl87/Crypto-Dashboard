@@ -46,21 +46,21 @@ const Modal = (props) => {
                     <div className="modal-body">
                         {fetchAndType.type
                             ? <React.Fragment>
-                        <label htmlFor="symbol" className="form-label">
+                                <label htmlFor="symbol" className="form-label">
                                     {fetchAndType.type == "crypto"
                                         ? "Token name or symbol"
                                         : "Stock ticker or company name"}
-                        </label>
-                        <Suggest
-                            id="symbol"
-                            className="form-control"
+                                </label>
+                                <Suggest
+                                    id="symbol"
+                                    className="form-control"
                                     placeholder={fetchAndType.type == "crypto"
                                         ? "e.g. btc or bitcoin"
                                         : "e.g. gme or gamestop"}
                                     endpoint={fetchAndType.type == "crypto"
                                         ? "search-crypto"
                                         : "search"}
-                            getSuggestionValue={(suggestion) => {
+                                    getSuggestionValue={(suggestion) => {
                                         if (fetchAndType.type == "crypto") {
                                             selectedSymbol = suggestion['symbol'];
                                             return suggestion['symbol'];
@@ -69,8 +69,8 @@ const Modal = (props) => {
                                             selectedSymbol = suggestion['1. symbol'];
                                             return suggestion['1. symbol'];
                                         }
-                            }}
-                            renderSuggestion={(suggestion) => (
+                                    }}
+                                    renderSuggestion={(suggestion) => (
                                         <div>
                                             {fetchAndType.type == "crypto"
                                                 ? <React.Fragment>
@@ -91,28 +91,28 @@ const Modal = (props) => {
                                                 </React.Fragment>
                                             }
                                         </div>
-                            )}
-                            onFetchStart={() => {
+                                    )}
+                                    onFetchStart={() => {
                                         setFetchAndType({
                                             fetch: true,
                                             type: fetchAndType.type,
                                         });
-                            }}
-                            onFetchStop={() => {
+                                    }}
+                                    onFetchStop={() => {
                                         setFetchAndType({
                                             fetch: false,
                                             type: fetchAndType.type,
                                         });
-                            }}
-                        />
-                        <div className="form-text">
+                                    }}
+                                />
+                                <div className="form-text">
                                     {fetchAndType.fetch
                                         ? <span>Loading {fetchAndType.type == "crypto"
                                             ? "tokens"
                                             : "tickers"}...</span>
                                         : <span>&nbsp;</span>
                                     }
-                        </div>
+                                </div>
                             </React.Fragment>
                             : <div className="d-flex justify-content-around">
                                 <button
@@ -154,7 +154,10 @@ const Modal = (props) => {
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                props.save(selectedSymbol);
+                                props.save(
+                                    fetchAndType.type,
+                                    selectedSymbol
+                                );
                             }}
                         >
                             Save

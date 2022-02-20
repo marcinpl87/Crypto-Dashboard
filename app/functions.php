@@ -33,14 +33,14 @@ function mCurl($action, $token, $url, $params = false) {
         $url
     );
     if ($token) {
-    curl_setopt(
-        $ch,
-        CURLOPT_HTTPHEADER,
-        [
-            'x-rapidapi-host: alpha-vantage.p.rapidapi.com',
-            'x-rapidapi-key: '.$token,
-        ]
-    );
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            [
+                'x-rapidapi-host: alpha-vantage.p.rapidapi.com',
+                'x-rapidapi-key: '.$token,
+            ]
+        );
     }
     $res = curl_exec($ch);
     $rescode = curl_getinfo(
@@ -102,13 +102,63 @@ function searchSymbol($query) {
 }
 
 function searchCryptoSymbol($query) {
-    return mCurl(
-        'get',
-        false,
-        'https://api.coingecko.com/api/v3/coins/list',
-        [
-            'include_platform' => 'false'
-        ]
+    return array_values(
+        array_filter(
+            mCurl(
+                'get',
+                false,
+                'https://api.coingecko.com/api/v3/coins/list',
+                [
+                    'include_platform' => 'false'
+                ]
+            ),
+            function($obj) use(&$query) {
+                return !(
+                    (
+                        isset(
+                            $obj->name
+                        )
+                        && strpos(
+                            strtolower(
+                                str_replace(
+                                    ' ',
+                                    '',
+                                    $obj->name
+                                )
+                            ),
+                            strtolower(
+                                str_replace(
+                                    ' ',
+                                    '',
+                                    $query
+                                )
+                            )
+                        ) === false
+                    )
+                    && (
+                        isset(
+                            $obj->symbol
+                        )
+                        && strpos(
+                            strtolower(
+                                str_replace(
+                                    ' ',
+                                    '',
+                                    $obj->symbol
+                                )
+                            ),
+                            strtolower(
+                                str_replace(
+                                    ' ',
+                                    '',
+                                    $query
+                                )
+                            )
+                        ) === false
+                    )
+                );
+            }
+        )
     );
 }
 
