@@ -1,8 +1,11 @@
 import React, {
     useState,
+    useEffect,
 } from 'react';
 import ReactDOM from 'react-dom';
 import Card from './Card';
+
+const LS_KEY = 'CryptoDashState'; //Local Storage key name
 
 const chunks = (arr, size = 2) => {
     return arr
@@ -18,7 +21,9 @@ const Row = (props) => {
         <div className="row">
             {props.symbol.map((sym, k) => (
                 <Col
-                    key={Math.random()}
+                    key={
+                        Math.random()
+                    }
                     isDarkMode={
                         props.isDarkMode
                     }
@@ -41,7 +46,9 @@ const Col = (props) => {
     return (
         <div className="col-md-6">
             <Card
-                key={Math.random()}
+                key={
+                    Math.random()
+                }
                 isDarkMode={
                     props.isDarkMode
                 }
@@ -66,13 +73,29 @@ export default (props) => {
     const [
         symbols,
         setSymbols,
-    ] = useState([
+    ] = useState(() => JSON.parse(
+        localStorage.getItem(LS_KEY)
+    ) || [
         {
             'id': 1,
             'type': '',
             'name': '',
         },
     ]);
+    useEffect(
+        () => {
+            localStorage.setItem(
+                LS_KEY,
+                JSON.stringify(
+                    symbols
+                )
+            );
+        },
+        [
+            LS_KEY,
+            symbols,
+        ]
+    );
     const symbolEdit = (id, type, symbol) => {
         const objIndex = symbols.findIndex(
             obj => obj.id == id

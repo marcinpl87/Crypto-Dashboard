@@ -37,10 +37,10 @@ const Chart = (props) => {
                         type: 'area',
                     },
                     dataLabels: {
-                        enabled: false
+                        enabled: false,
                     },
                     stroke: {
-                        curve: 'smooth'
+                        curve: 'smooth',
                     },
                     fill: {
                         type: 'gradient',
@@ -54,19 +54,20 @@ const Chart = (props) => {
                             opacityFrom: 0.5,
                             opacityTo: 0,
                             stops: [0, 80],
-                            colorStops: []
+                            colorStops: [],
                         }
                     },
                     xaxis: {
+                        tickAmount: 20,
                         categories: []
                     },
                 },
                 series: [
                     {
                         name: 'series-1',
-                        data: []
-                    }
-                ]
+                        data: [],
+                    },
+                ],
             };
             returnData.options.xaxis.categories = dates;
             returnData.series[0].data = quotes;
